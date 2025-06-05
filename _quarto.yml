@@ -10,6 +10,9 @@ website:
         text: Home
       - href: portifolio.qmd
         text: Portifólio
+    right:
+      - icon: github
+        href: https://www.github.com/leandro-vento
 
 format:
   html:

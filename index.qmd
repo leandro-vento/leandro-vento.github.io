@@ -7,6 +7,9 @@ about:
     - icon: linkedin
       text: Linkedin
       href: https://www.linkedin.com/in/leandro-vigari-vento
+    - icon: github
+      text: Github
+      href: https://www.github.com/leandro-vento
 ---
 
 Me chamo Leandro, mas pode me chamar de Vento!
