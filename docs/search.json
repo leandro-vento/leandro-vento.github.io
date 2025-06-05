@@ -2,15 +2,57 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "\n👋Olá, seja bem vindo(a)!\n",
+    "title": "Leandro Vento",
     "section": "",
-    "text": "👋Olá, seja bem vindo(a)!\n\n\n\nMe chamo Leandro, mas pode me chamar de Vento!\n\n\nSou apaixonado por tecnologia, análise de dados e aprendizado contínuo. Aqui você vai encontrar projetos que refletem meu crescimento, experiências e meu comprometimento com a qualidade e a inovação!\n\n\nAs linguagens e ferramentas que mais utilizo são:"
+    "text": "Me chamo Leandro, mas pode me chamar de Vento!\nSou apaixonado por tecnologia, análise de dados e aprendizado contínuo. Aqui você vai encontrar projetos que refletem meu crescimento, experiências e meu comprometimento com a qualidade e a inovação!\nAs linguagens e ferramentas que mais utilizo são:"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "Sobre",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "plot(mtcars$mpg)"
+  },
+  {
+    "objectID": "about.html#row",
+    "href": "about.html#row",
+    "title": "Sobre",
+    "section": "",
+    "text": "plot(mtcars$mpg)"
+  },
+  {
+    "objectID": "about.html#row-1",
+    "href": "about.html#row-1",
+    "title": "Sobre",
+    "section": "Row",
+    "text": "Row"
+  },
+  {
+    "objectID": "projeto1.html",
+    "href": "projeto1.html",
+    "title": "Projeto 1",
+    "section": "",
+    "text": "plot(mtcars$mpg)"
+  },
+  {
+    "objectID": "projeto1.html#row",
+    "href": "projeto1.html#row",
+    "title": "Projeto 1",
+    "section": "",
+    "text": "plot(mtcars$mpg)"
+  },
+  {
+    "objectID": "projeto1.html#row-1",
+    "href": "projeto1.html#row-1",
+    "title": "Projeto 1",
+    "section": "Row",
+    "text": "Row"
+  },
+  {
+    "objectID": "projeto1.html#section",
+    "href": "projeto1.html#section",
+    "title": "Projeto 1",
+    "section": "",
+    "text": "plot(mtcars$mpg)"
   }
 ]
