@@ -18,7 +18,13 @@ silent <- capture.output(mapa_estados <- st_read(shp_file))
 mapa_leaflet <- leaflet() %>%
   addTiles() %>%
   addPolygons(data = mapa_estados, color = "blue", weight = 1, opacity = 0.5,
-              fillColor = "lightblue", fillOpacity = 0.4)
+              fillColor = "lightblue", fillOpacity = 0.4,
+              label = ~NM_UF,
+              labelOptions = labelOptions(
+                style = list("font-weight" = "bold", "color" = "black"),
+                textsize = "12px", direction = "auto"
+              )
+  )
 
 # Exibir o mapa
 mapa_leaflet
