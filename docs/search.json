@@ -54,5 +54,12 @@
     "title": "Projeto 1",
     "section": "",
     "text": "plot(mtcars$mpg)"
+  },
+  {
+    "objectID": "portifolio.html",
+    "href": "portifolio.html",
+    "title": "Portifólio",
+    "section": "",
+    "text": "Reading layer `BR_UF_2024' from data source \n  `C:\\Users\\Leandro\\Desktop\\le\\projetos R\\vento\\BR_UF_2024.json' \n  using driver `GeoJSON'\nSimple feature collection with 27 features and 7 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: -73.98312 ymin: -33.7483 xmax: -34.79316 ymax: 5.267308\nGeodetic CRS:  WGS 84"
   }
 ]

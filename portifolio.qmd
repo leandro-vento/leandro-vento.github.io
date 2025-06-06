@@ -1,3 +1,26 @@
 ---
 title: "Portifólio"
 ---
+
+```{r echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+library(sf)
+library(leaflet)
+
+# Caminho do arquivo SHP (substitua pelo caminho correto)
+shp_file <- "BR_UF_2024.json"
+
+# Carregar o shapefile
+# mapa_estados <- suppressMessages(suppressWarnings(st_read(shp_file)))
+silent <- capture.output(mapa_estados <- st_read(shp_file))
+
+
+# Criar um mapa interativo com leaflet
+mapa_leaflet <- leaflet() %>%
+  addTiles() %>%
+  addPolygons(data = mapa_estados, color = "blue", weight = 1, opacity = 0.5,
+              fillColor = "lightblue", fillOpacity = 0.4)
+
+# Exibir o mapa
+mapa_leaflet
+
+```
