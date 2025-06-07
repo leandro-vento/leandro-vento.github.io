@@ -13,13 +13,15 @@ shp_file <- "BR_UF_2024.json"
 # mapa_estados <- suppressMessages(suppressWarnings(st_read(shp_file)))
 silent <- capture.output(mapa_estados <- st_read(shp_file))
 
+labelText <- paste0("<b>UF: </b>", mapa_estados$NM_UF,"<br/>",
+                    "<b>Região: </b>", mapa_estados$NM_REGIA)  
 
 # Criar um mapa interativo com leaflet
 mapa_leaflet <- leaflet() %>%
   addTiles() %>%
   addPolygons(data = mapa_estados, color = "blue", weight = 1, opacity = 0.5,
               fillColor = "lightblue", fillOpacity = 0.4,
-              label = ~NM_UF,
+              label = lapply(labelText, htmltools::HTML),
               labelOptions = labelOptions(
                 style = list("font-weight" = "bold", "color" = "black"),
                 textsize = "12px", direction = "auto"

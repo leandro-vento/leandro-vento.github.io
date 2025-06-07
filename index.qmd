@@ -1,6 +1,6 @@
 ---
 title: "Leandro Vento"
-image: img-perfil-github.png
+image: gif-perfil.gif
 about: 
   template: jolla
   links: 
