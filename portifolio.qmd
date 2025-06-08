@@ -2,9 +2,238 @@
 title: "Portifólio"
 ---
 
+:::{.panel-tabset}
+
+## Dados
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+
+dados <- readRDS(file = "dados.rds") %>% 
+  subset(salário >= 1518)
+
+DT::datatable(dados)
+
+```
+
+## Estatísticas - Geral
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+
+qt_profissionais <- 
+  dados %>% 
+  dplyr::select(competênciamov, saldomovimentação) %>% 
+  dplyr::group_by(competênciamov) %>% 
+  dplyr::mutate(qt_desligamento = length(saldomovimentação[saldomovimentação == -1]),
+                qt_admissao = length(saldomovimentação[saldomovimentação == 1]),
+                qt_saldo = qt_admissao - qt_desligamento,
+                competênciamov = as.character(competênciamov)) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::select(-saldomovimentação) %>% 
+  unique()
+
+```
+
+### Evolução das admissões
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+
+fig <- plot_ly(qt_profissionais, x = ~competênciamov, y = ~qt_admissao, name = 'Admissões', type = 'scatter', mode = 'lines+markers') %>% 
+  layout(yaxis = list(rangemode = "tozero"))
+fig
+
+```
+
+### Evolução dos desligamento
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+
+fig <- plot_ly(qt_profissionais, x = ~competênciamov, y = ~qt_desligamento, name = 'Desligamentos', type = 'scatter', mode = 'lines+markers') %>% 
+  layout(yaxis = list(rangemode = "tozero"))
+fig
+
+```
+
+### Evolução do saldo
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+
+fig <- plot_ly(qt_profissionais, x = ~competênciamov, y = ~qt_saldo, type = 'bar', name = 'Saldo', marker = list(color = 'rgb(49,130,189)'))
+fig
+
+```
+
+## Estatísticas - Salário
+
+```{r echo=FALSE}
+
+min_salario <- min(dados$salário, na.rm = TRUE)
+
+max_salario <- max(dados$salário, na.rm = TRUE)
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(bslib)
+library(bsicons)
+library(formattable)
+value_box(
+  title = "Menor valor de Salário",
+  value = paste0("R$ ", comma(min_salario, big.mark = ".", decimal.mark = ",")),
+  showcase = bs_icon("cash")
+)
+value_box(
+  title = "Maior valor de Salário",
+  value = paste0("R$ ", comma(max_salario, big.mark = ".", decimal.mark = ",")),
+  showcase = bs_icon("cash")
+)
+```
+
+### Média salarial por mês
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+library(dplyr)
+
+dados_resumo_salario <- 
+  dados %>% 
+  dplyr::select(competênciamov, salário) %>% 
+  dplyr::group_by(competênciamov) %>% 
+  dplyr::mutate(media_salário = mean(salário, na.rm = TRUE),
+                competênciamov = as.character(competênciamov)) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::select(-salário) %>% 
+  unique()
+  
+
+fig <- plot_ly(
+  x = dados_resumo_salario$competênciamov,
+  y = dados_resumo_salario$media_salário,
+  name = "Média salarial por mês",
+  type = "bar"
+)
+
+fig
+```
+
+## Estatísticas - Idade
+
+```{r echo=FALSE}
+
+min_idade <- min(dados$idade, na.rm = TRUE)
+
+max_idade <- max(dados$idade, na.rm = TRUE)
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(bslib)
+library(bsicons)
+library(formattable)
+value_box(
+  title = "Menor idade",
+  value = comma(min_idade, big.mark = ".", decimal.mark = ","),
+  showcase = bs_icon("person")
+)
+value_box(
+  title = "Maior idade",
+  value = comma(max_idade, big.mark = ".", decimal.mark = ","),
+  showcase = bs_icon("person")
+)
+```
+
+### Média de idade por mês
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+library(dplyr)
+
+dados_resumo_idade <- 
+  dados %>% 
+  dplyr::select(competênciamov, idade) %>% 
+  dplyr::group_by(competênciamov) %>% 
+  dplyr::mutate(media_idade = mean(idade, na.rm = TRUE),
+                competênciamov = as.character(competênciamov)) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::select(-idade) %>% 
+  unique()
+  
+
+fig <- plot_ly(
+  x = dados_resumo_idade$competênciamov,
+  y = dados_resumo_idade$media_idade,
+  name = "Média de idade por mês",
+  type = "bar"
+)
+
+fig
+```
+
+### Média salarial por idade
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+library(dplyr)
+
+dados_resumo_idade_salario <- 
+  dados %>% 
+  dplyr::select(salário, idade) %>% 
+  dplyr::group_by(idade) %>% 
+  dplyr::mutate(media_salário = mean(salário, na.rm = TRUE)) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::select(-salário) %>% 
+  unique()
+  
+
+fig <- plot_ly(
+  x = dados_resumo_idade_salario$idade,
+  y = dados_resumo_idade_salario$media_salário,
+  name = "Média salarial por idade",
+  type = "bar"
+)
+
+fig
+```
+
+### Profissionais por idade
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+library(dplyr)
+
+dados_resumo_n_idade <- 
+  dados %>% 
+  dplyr::select(salário, idade) %>% 
+  dplyr::group_by(idade) %>% 
+  dplyr::mutate(n_idade = length(salário)) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::select(-salário) %>% 
+  unique()
+  
+
+fig <- plot_ly(
+  x = dados_resumo_n_idade$idade,
+  y = dados_resumo_n_idade$n_idade,
+  name = "Quantidade de profissionais por idade",
+  type = "bar"
+)
+
+fig
+```
+
+
+## Mapa
+
+### Mapa coroplético da média salarial em 04/2025
+
 ```{r echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
 library(sf)
 library(leaflet)
+library(dplyr)
 
 # Caminho do arquivo SHP (substitua pelo caminho correto)
 shp_file <- "BR_UF_2024.json"
@@ -13,22 +242,74 @@ shp_file <- "BR_UF_2024.json"
 # mapa_estados <- suppressMessages(suppressWarnings(st_read(shp_file)))
 silent <- capture.output(mapa_estados <- st_read(shp_file))
 
+dados_resumo_salario_uf <-
+  dados %>%
+  dplyr::select(competênciamov, uf, salário) %>%
+  dplyr::group_by(competênciamov, uf) %>%
+  dplyr::mutate(media_salário = mean(salário, na.rm = TRUE),
+                uf = as.character(uf)) %>%
+  dplyr::ungroup() %>%
+  dplyr::select(-salário) %>%
+  unique() %>%
+  subset(competênciamov == 202504) %>%
+  dplyr::select(-competênciamov)
+
+mapa_estados <- 
+  mapa_estados %>% 
+  dplyr::left_join(dados_resumo_salario_uf, by = c("CD_UF" = "uf"))
+
 labelText <- paste0("<b>UF: </b>", mapa_estados$NM_UF,"<br/>",
-                    "<b>Região: </b>", mapa_estados$NM_REGIA)  
+                    "<b>Região: </b>", mapa_estados$NM_REGIA,"<br/>",
+                    "<b>Média salarial: </b>", paste0("R$ ", comma(mapa_estados$media_salário, big.mark = ".", decimal.mark = ",")))  
 
 # Criar um mapa interativo com leaflet
-mapa_leaflet <- leaflet() %>%
-  addTiles() %>%
-  addPolygons(data = mapa_estados, color = "blue", weight = 1, opacity = 0.5,
-              fillColor = "lightblue", fillOpacity = 0.4,
-              label = lapply(labelText, htmltools::HTML),
-              labelOptions = labelOptions(
-                style = list("font-weight" = "bold", "color" = "black"),
-                textsize = "12px", direction = "auto"
-              )
-  )
+# mapa_leaflet <- leaflet() %>%
+#   addTiles() %>%
+#   addPolygons(data = mapa_estados, color = "blue", weight = 1, opacity = 0.5,
+#               fillColor = "lightblue", fillOpacity = 0.4,
+#               label = lapply(labelText, htmltools::HTML),
+#               labelOptions = labelOptions(
+#                 style = list("font-weight" = "bold", "color" = "black"),
+#                 textsize = "12px", direction = "auto"
+#               )
+#   )
+
+bins <- c(0, 
+          quantile(mapa_estados$media_salário, probs = 0.25, na.rm = TRUE), 
+          quantile(mapa_estados$media_salário, probs = 0.50, na.rm = TRUE), 
+          quantile(mapa_estados$media_salário, probs = 0.75, na.rm = TRUE), 
+          quantile(mapa_estados$media_salário, probs = 0.90, na.rm = TRUE), 
+          Inf)
+pal <- colorBin("YlOrRd", domain = mapa_estados$media_salário, bins = bins)
+
+mapa_leaflet <- leaflet(mapa_estados) %>%
+  addProviderTiles("MapBox", options = providerTileOptions(
+    id = "mapbox.light",
+    accessToken = Sys.getenv('MAPBOX_ACCESS_TOKEN'))) %>%
+  addPolygons(
+    fillColor = ~pal(media_salário),
+    weight = 2,
+    opacity = 1,
+    color = "white",
+    dashArray = "3",
+    fillOpacity = 0.7,
+    highlightOptions = highlightOptions(
+      weight = 5,
+      color = "#666",
+      dashArray = "",
+      fillOpacity = 0.7,
+      bringToFront = TRUE),
+    label = lapply(labelText, htmltools::HTML),
+    labelOptions = labelOptions(
+      style = list("font-weight" = "normal", padding = "3px 8px"),
+      textsize = "15px",
+      direction = "auto")) %>%
+  addLegend(pal = pal, values = ~media_salário, opacity = 0.7, title = NULL,
+    position = "bottomright")
 
 # Exibir o mapa
 mapa_leaflet
 
 ```
+
+:::
