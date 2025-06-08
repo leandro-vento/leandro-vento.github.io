@@ -60,6 +60,6 @@
     "href": "portifolio.html",
     "title": "Portifólio",
     "section": "",
-    "text": "Reading layer `BR_UF_2024' from data source \n  `C:\\Users\\Leandro\\Desktop\\le\\projetos R\\vento\\BR_UF_2024.json' \n  using driver `GeoJSON'\nSimple feature collection with 27 features and 7 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: -73.98312 ymin: -33.7483 xmax: -34.79316 ymax: 5.267308\nGeodetic CRS:  WGS 84"
+    "text": "DadosEstatísticas - GeralEstatísticas - SalárioEstatísticas - IdadeMapa\n\n\n\nlibrary(dplyr)\n\ndados &lt;- readRDS(file = \"dados.rds\") %&gt;% \n  subset(salário &gt;= 1518)\n\nDT::datatable(dados)\n\n\n\n\n\n\n\n\nEvolução das admissões\n\n\n\n\n\n\n\n\nEvolução dos desligamento\n\n\n\n\n\n\n\n\nEvolução do saldo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMenor valor de Salário\nR$ 1.518,00\n\n\n\n\n\n\n\n\n\n\n\n\n\nMaior valor de Salário\nR$ 30.000,00\n\n\n\n\n\n\n\n\nMédia salarial por mês\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMenor idade\n16,00\n\n\n\n\n\n\n\n\n\n\n\n\nMaior idade\n66,00\n\n\n\n\n\n\n\n\nMédia de idade por mês\n\n\n\n\n\n\n\n\nMédia salarial por idade\n\n\n\n\n\n\n\n\nProfissionais por idade\n\n\n\n\n\n\n\n\n\n\nMapa coroplético da média salarial em 04/2025"
   }
 ]
